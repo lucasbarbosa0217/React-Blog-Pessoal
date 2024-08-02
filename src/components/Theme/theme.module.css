@@ -1,0 +1,55 @@
+.themeSelector {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: var(--accent);
+	transition: transform 0.4s;
+	color: var(--text-accent);
+	height: 3rem;
+	width: 21rem;
+	transform: translateX(18rem);
+
+	display: flex;
+	align-items: center;
+}
+.icon {
+	width: 3rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.themeSelector span {
+	font-size: 2rem;
+}
+
+.themeForm {
+	display: flex;
+	pointer-events: none;
+	height: 100%;
+}
+
+.themeSelector:hover {
+	transform: translateX(0rem);
+}
+.themeSelector:hover > .themeForm {
+	pointer-events: inherit;
+}
+
+.radio {
+	width: 6rem;
+	display: flex;
+	gap: 0.5rem;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+.radio:has(input:checked) {
+	background-color: var(--accent-selected);
+	background-opacity: 60%;
+}
+
+.radio input {
+	display: none;
+}
