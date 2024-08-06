@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import "./theme.css";
 
-import styles from "./theme.module.css";
 function Theme() {
     const [selectedOption, setSelectedOption] = useState("system");
 
@@ -12,72 +12,91 @@ function Theme() {
         } else {
             applySystemTheme();
         }
-    }, []);
 
-    const applyTheme = (theme) => {
+        const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleChange = (event: MediaQueryListEvent) => {
+            if (selectedOption === "system") {
+                applySystemTheme();
+            }
+        };
+
+        mediaQueryList.addEventListener('change', handleChange);
+
+        return () => {
+            mediaQueryList.removeEventListener('change', handleChange);
+        };
+    }, [selectedOption]);
+
+    const applyTheme = (theme: string) => {
+        const body = document.body;
         if (theme === "system") {
             applySystemTheme();
         } else if (theme === "dark") {
-            document.body.classList.remove("system-mode");
-            document.body.classList.remove("light-mode");
-            document.body.classList.add("dark-mode");
+            body.classList.remove("light");
+            body.classList.add("dark");
         } else if (theme === "light") {
-            document.body.classList.remove("system-mode");
-            document.body.classList.remove("dark-mode");
-            document.body.classList.add("light-mode");
+            body.classList.remove("dark");
+            body.classList.add("light");
         }
     };
 
     const applySystemTheme = () => {
-        document.body.classList.remove("light-mode");
-        document.body.classList.remove("dark-mode");
-        document.body.classList.add("system-mode");
+        const body = document.body;
+        body.classList.remove("light", "dark");
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            body.classList.add("dark");
+        } else {
+            body.classList.add("light");
+        }
     };
 
-    const handleOptionChange = (event) => {
-        const newOption = event.target.value;
+    const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const target = event.target as HTMLInputElement;
+        const newOption = target.value;
         setSelectedOption(newOption);
         localStorage.setItem("selectedTheme", newOption);
         applyTheme(newOption);
     };
+
     return (
-        <div className={styles.themeSelector}>
-            <div className={styles.icon}>
-                <span className="material-symbols-outlined">dark_mode</span>
+        <div className="text-dark-textContent fixed bottom-0 right-0 bg-light-accentt bg-dark-accent text-light-text-accent h-12 w-84 transform translate-x-72 transition-transform duration-400 flex items-center hover:translate-x-0">
+            <div className="w-12 flex items-center justify-center">
+                <span className="material-symbols-outlined text-3xl">dark_mode</span>
             </div>
 
-            <form className={styles.themeForm}>
-                <label className={styles.radio}>
+            <form className="flex h-full">
+                <label className="option flex items-center justify-center gap-2 w-24 h-full cursor-pointer">
                     <input
                         type="radio"
                         name="theme"
                         value="system"
                         checked={selectedOption === "system"}
                         onChange={handleOptionChange}
+                        className="hidden"
                     />
-                    System
+                    <span>System</span>
                 </label>
-
-                <label className={styles.radio}>
+                <label className="option flex items-center justify-center gap-2 w-24 h-full cursor-pointer">
                     <input
                         type="radio"
                         name="theme"
                         value="dark"
                         checked={selectedOption === "dark"}
                         onChange={handleOptionChange}
+                        className="hidden"
                     />
-                    Dark Mode
+                    <span>Dark Mode</span>
                 </label>
-
-                <label className={styles.radio}>
+                <label className="option flex items-center justify-center gap-2 w-24 h-full cursor-pointerd">
                     <input
                         type="radio"
                         name="theme"
                         value="light"
                         checked={selectedOption === "light"}
                         onChange={handleOptionChange}
+                        className="hidden"
                     />
-                    Light Mode
+                    <span>Light Mode</span>
                 </label>
             </form>
         </div>

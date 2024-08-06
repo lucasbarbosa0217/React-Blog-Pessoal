@@ -1,11 +1,10 @@
 body {
   font-family: "Noto Sans", sans-serif;
-  background-color: var(--background1);
-  color: var(--text-content);
 }
 
 #root{
-  min-height: 100dvh;
-  display: flex;
-  flex-flow: column nowrap;
+  
+min-height: 100dvh;
+display: flex;
+flex-flow: column nowrap;
 }
