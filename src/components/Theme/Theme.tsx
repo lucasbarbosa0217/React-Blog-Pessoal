@@ -59,7 +59,7 @@ function Theme() {
     };
 
     return (
-        <div className="text-dark-textContent fixed bottom-0 right-0 bg-light-accentt bg-dark-accent text-light-text-accent h-12 w-84 transform translate-x-72 transition-transform duration-400 flex items-center hover:translate-x-0">
+        <div className="text-dark-textContent fixed bottom-16 right-0 bg-light-accentt border-2 border-light-accentSelected bg-dark-accent text-light-text-accent h-12 w-84 transform translate-x-72 transition-transform duration-400 flex items-center hover:translate-x-0">
             <div className="w-12 flex items-center justify-center">
                 <span className="material-symbols-outlined text-3xl">dark_mode</span>
             </div>

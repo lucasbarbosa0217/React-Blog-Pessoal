@@ -34,14 +34,14 @@ function Header() {
                 </button>
             </form>
 
-            <div className="sm:col-span-1 lg:col-span-5 flex justify-end items-center gap-4">
+            <nav className="sm:col-span-1 lg:col-span-5 flex justify-end items-center gap-4">
                 <div className="flex items-center">
                     <Link to="/categorias" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Categorias</Link>
                 </div>
                 <button className="flex p-1 items-center" onClick={handleNavigate}>
                     <span className="material-symbols-outlined text-3xl h-full text-light-accent">account_circle</span>
                 </button>
-            </div>
+            </nav>
         </header>
     );
 }
