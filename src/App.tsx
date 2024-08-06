@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <div className="flex-grow">
+      <div className="flex flex-grow flex-col flex-nowrap">
       <Routes >
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
