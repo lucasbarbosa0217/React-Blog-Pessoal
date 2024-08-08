@@ -13,7 +13,7 @@ function Header() {
             <div
                 className="sm:col-span-1 lg:col-span-3 font-serif text-4xl font-black italic text-center"
             >
-                <Link to="/Home">
+                <Link to="/Home" className="text-light-textContent !decoration-transparent dark:!text-dark-textContent">
                     <h1>
                         Lulucas
                         <span className="font-thin not-italic text-light-accent">Blog</span>
@@ -26,7 +26,7 @@ function Header() {
             >
                 <input
                     type="search"
-                    className="bg-transparent outline-none flex-grow"
+                    className="bg-transparent outline-none flex-grow pl-2"
                     placeholder="Pesquisar..."
                 />
                 <button className="flex p-1 items-center">
@@ -35,7 +35,10 @@ function Header() {
             </form>
 
             <nav className="sm:col-span-1 lg:col-span-5 flex justify-end items-center gap-4">
-                <div className="flex items-center">
+                <div className="flex items-center gap-4">
+                    <Link to="/cadastro" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Cadastro</Link>
+                    <Link to="/login" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Login</Link>
+
                     <Link to="/categorias" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Categorias</Link>
                 </div>
                 <button className="flex p-1 items-center" onClick={handleNavigate}>
