@@ -1,6 +1,6 @@
 import { Blog } from './Blog';
 
-export interface Theme {
+export default interface Theme {
     id: number;
     description: string;
     blog: Blog[];

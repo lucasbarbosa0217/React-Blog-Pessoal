@@ -64,7 +64,7 @@ const Login = () => {
                         />
                 </div>
 
-                <button type='submit' className="rounded bg-dark-accent hover:bg-dark-accentSelected text-white py-2 flex justify-center">
+                <button disabled={isLoading} type='submit' className="rounded bg-dark-accent hover:bg-dark-accentSelected text-white py-2 flex justify-center">
                     {isLoading ? <RotatingLines
                         strokeColor="white"
                         strokeWidth="5"
