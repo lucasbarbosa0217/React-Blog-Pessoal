@@ -11,6 +11,7 @@ import FormularioTema from "./components/Tema/formularioTema/FormularioTema.tsx"
 import DeletarTema from "./components/Tema/deletarTema/DeletarTema.tsx";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import Theme from "./components/Theme/Theme.tsx";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Footer />
         </BrowserRouter>
       </AuthProvider>
+      <Theme/>
     </>
   );
 }
