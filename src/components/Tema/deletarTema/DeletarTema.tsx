@@ -1,18 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import { AuthContext } from '../../../contexts/AuthContext'
-import Theme from '../../../models/Theme'
-import { buscar, deletar } from '../../../services/Service'
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
+import { AuthContext } from '../../../contexts/AuthContext';
+import Theme from '../../../models/Theme';
+import { buscar, deletar } from '../../../services/Service';
+import { Link } from 'react-router-dom';
+import { Eraser, PencilSimpleLine } from '@phosphor-icons/react';
 
 function DeletarTema() {
-    const [tema, setTema] = useState<Theme>({} as Theme)
+    const [tema, setTema] = useState<Theme>({} as Theme);
 
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
-    const { id } = useParams<{ id: string }>()
+    const { id } = useParams<{ id: string }>();
 
-    const { usuario, handleLogout } = useContext(AuthContext)
-    const token = usuario.token
+    const { usuario, handleLogout } = useContext(AuthContext);
+    const token = usuario.token;
 
     async function buscarPorId(id: string) {
         try {
@@ -20,30 +22,30 @@ function DeletarTema() {
                 headers: {
                     'Authorization': token
                 }
-            })
+            });
         } catch (error: any) {
             if (error.toString().includes('403')) {
-                alert('O token expirou, favor logar novamente')
-                handleLogout()
+                alert('O token expirou, favor logar novamente');
+                handleLogout();
             }
         }
     }
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado')
-            navigate('/login')
+            alert('Você precisa estar logado');
+            navigate('/login');
         }
-    }, [token])
+    }, [token]);
 
     useEffect(() => {
         if (id !== undefined) {
-            buscarPorId(id)
+            buscarPorId(id);
         }
-    }, [id])
+    }, [id]);
 
     function retornar() {
-        navigate("/temas")
+        navigate("/temas");
     }
 
     async function deletarTema() {
@@ -52,34 +54,46 @@ function DeletarTema() {
                 headers: {
                     'Authorization': token
                 }
-            })
+            });
 
-            alert('Tema apagado com sucesso')
+            alert('Tema apagado com sucesso');
 
         } catch (error) {
-            alert('Erro ao apagar o Tema')
+            alert('Erro ao apagar o Tema');
         }
 
-        retornar()
+        retornar();
     }
+
     return (
-        <div className='container w-1/3 mx-auto'>
-            <h1 className='text-4xl text-center my-4'>Deletar tema</h1>
+        <div className='bg-light-background3 m-4 dark:bg-dark-background3 flex flex-col p-4 max-w-[30rem] w-full self-center justify-center gap-2'>
+            <h1 className='text-4xl font-serif text-center my-4'>Deletar tema</h1>
+            <p className='text-center  mb-4'>Você tem certeza de que deseja apagar o tema a seguir?</p>
 
-            <p className='text-center font-semibold mb-4'>Você tem certeza de que deseja apagar o tema a seguir?</p>
-
-            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
-                <header className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>Tema</header>
-                <p className='p-8 text-3xl bg-slate-200 h-full'>{tema.description}</p>
-                <div className="flex">
-                    <button className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2' onClick={retornar}>Não</button>
-                    <button className='w-full text-slate-100 bg-indigo-400 hover:bg-indigo-600 flex items-center justify-center' onClick={deletarTema}>
+            <div className='flex flex-col overflow-hidden justify-between shadow-md bg-light-background3 dark:bg-dark-background3'>
+                <header className='p-2 bg-light-accent text-dark-textContent '>
+                    Tema
+                </header>
+                <p className='p-4 text-2xl text-center'>{tema.description}</p>
+                <div className="flex border-t-2 dark:border-dark-background2">
+                    <button
+                        className='w-full  text-blue-500   py-2  border-r-2 dark:border-dark-background2'
+                        onClick={retornar}
+                    >
+                        Não
+                    </button>
+                    <button
+                        className='w-full flex items-center text-red-500 justify-center'
+                        onClick={deletarTema}
+                    >
                         Sim
                     </button>
                 </div>
+
+           
             </div>
         </div>
-    )
+    );
 }
 
-export default DeletarTema
+export default DeletarTema;

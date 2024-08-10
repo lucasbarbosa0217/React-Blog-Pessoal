@@ -2,12 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-a {
-  color: #007bff;
-  text-decoration: underline;
-}
-
-.dark a{
-      color: #009dff; /* Azul padrão */
-  text-decoration: underline;
-}

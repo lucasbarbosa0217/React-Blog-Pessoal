@@ -5,7 +5,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 function Header() {
     let navigate = useNavigate()
 
-    function handleNavigate(){
+    function handleNavigate() {
         navigate("/login")
     }
 
@@ -49,11 +49,20 @@ function Header() {
 
             <nav className="sm:col-span-1 lg:col-span-5 flex justify-end items-center gap-4">
                 <div className="flex items-center gap-4">
-                    <Link to="" onClick={logout} className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Sair</Link>
-                    <Link to="/cadastro" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Cadastro</Link>
-                    <Link to="/login" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Login</Link>
-                    <Link to='/temas' className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Temas</Link>
-                    <Link to='/cadastroTema' className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Cadastrar tema</Link>
+                    {
+                        usuario.token ?
+                            <>
+                                <Link to="" onClick={logout} className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Sair</Link>
+                                <Link to='/temas' className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Temas</Link>
+                                <Link to='/cadastroTema' className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Cadastrar tema</Link>
+                            </>
+                            :
+                            <>
+                                <Link to="/cadastro" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Cadastro</Link>
+                                <Link to="/login" className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Login</Link>
+                            </>
+                    }
+
                 </div>
                 <button className="flex p-1 items-center" onClick={handleNavigate}>
                     <span className="material-symbols-outlined text-3xl h-full text-light-accent">account_circle</span>

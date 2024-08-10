@@ -76,7 +76,7 @@ function FormularioTema() {
                     alert('O token expirou, favor logar novamente')
                     handleLogout()
                 } else {
-                    alert('Erro ao cadastrado o Tema')
+                    alert('Erro ao cadastrar o Tema')
                 }
             }
         }
@@ -96,25 +96,25 @@ function FormularioTema() {
     }, [token]);
 
     return (
-        <div className="container flex flex-col items-center justify-center mx-auto">
-            <h1 className="text-4xl text-center my-8">
+        <div className="bg-light-background3 m-4 dark:bg-dark-background3 flex flex-col p-4 max-w-[30rem] w-full self-center justify-center gap-2">
+            <h1 className="text-4xl font-serif text-center my-8">
                 {id === undefined ? 'Cadastre um novo tema' : 'Editar tema'}
             </h1>
 
-            <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoTema}>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="descricao">Descrição do tema</label>
+            <form className="flex flex-col gap-4" onSubmit={gerarNovoTema}>
+                <div className='flex flex-col'>
+                    <label htmlFor="descricao">Descrição do tema:</label>
                     <input
                         type="text"
                         placeholder="Descrição"
                         name='description'
-                        className="border-2 border-slate-700 rounded p-2"
+                        className="bg-light-background2 dark:bg-dark-background2 p-2"
                         value={tema.description}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
                 </div>
                 <button
-                    className="rounded text-slate-100 bg-indigo-400 hover:bg-indigo-800 w-1/2 py-2 mx-auto block"
+                    className="rounded bg-dark-accent hover:bg-dark-accentSelected text-white py-2 flex justify-center"
                     type="submit"
                 >
                     {id === undefined ? 'Cadastrar' : 'Editar'}

@@ -22,7 +22,7 @@ function App() {
           <Header />
           <div className='flex flex-grow flex-col flex-nowrap'>
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/home" element={<Home />} />
@@ -30,6 +30,7 @@ function App() {
               <Route path="/cadastroTema" element={<FormularioTema />} />
               <Route path="/editarTema/:id" element={<FormularioTema />} />
               <Route path="/deletarTema/:id" element={<DeletarTema />} />
+              <Route path="/admin/deletarTema/:id" element={<DeletarTema />} />
             </Routes>
           </div>
           <Footer />
