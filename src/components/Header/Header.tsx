@@ -19,6 +19,10 @@ function Header() {
     }
 
 
+    function isAdmin(){
+        return usuario && usuario.role && usuario.role.some(papel => papel.name === "ROLE_ADMIN")
+    }
+
     return (
         <header
             className="sm:grid-cols-1 gap-y-4 lg:grid-cols-12 grid min-h-8 w-full bg-light-background3 dark:bg-dark-background3 p-4"
@@ -53,8 +57,12 @@ function Header() {
                         usuario.token ?
                             <>
                                 <Link to="" onClick={logout} className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Sair</Link>
-                                <Link to='/temas' className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Temas</Link>
-                                <Link to='/cadastroTema' className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Cadastrar tema</Link>
+                                
+                                {isAdmin() ?
+                                <Link to='/admin' className="text-light-accent visited:text-light-accentActive hover:text-light-accentSelected">Admin</Link>
+                                : ""
+                                }
+                       
                             </>
                             :
                             <>

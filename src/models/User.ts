@@ -1,8 +1,8 @@
 import { Blog } from './Blog';
 import { Comment } from './Comment';
-import { Role } from './Role';
+import  Role  from './Role';
 
-export interface User {
+export default interface User {
     id: number;
     name: string;
     email: string;

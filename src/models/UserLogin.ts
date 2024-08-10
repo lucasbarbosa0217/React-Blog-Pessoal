@@ -1,3 +1,5 @@
+import Role  from "./Role";
+
 export default interface UserLogin {
   id: number;
   name: string;
@@ -5,4 +7,5 @@ export default interface UserLogin {
   password: string;
   photo?: string;
   token: string;
+  role?: Role[];
 }

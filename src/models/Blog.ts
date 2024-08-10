@@ -1,5 +1,5 @@
-import { Theme } from './Theme';
-import { User } from './User';
+import  Theme  from './Theme';
+import  User  from './User';
 import { Comment } from './Comment';
 
 export interface Blog {

@@ -85,7 +85,7 @@ function FormularioTema() {
     }
 
     function retornar() {
-        navigate("/temas")
+        navigate("/admin/temas")
     }
 
     useEffect(() => {

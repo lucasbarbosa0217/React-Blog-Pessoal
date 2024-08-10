@@ -45,7 +45,7 @@ function DeletarTema() {
     }, [id]);
 
     function retornar() {
-        navigate("/temas");
+        navigate("/admin/temas");
     }
 
     async function deletarTema() {
