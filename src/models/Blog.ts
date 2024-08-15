@@ -7,9 +7,9 @@ export interface Blog {
     title: string;
     text: string;
     urlpath?: string;
-    createdTimestamp: string;  // ISO 8601 string format
-    updatedTimestamp: string;  // ISO 8601 string format
-    theme: Theme;
-    user: User;
-    comment: Comment[];
+    createdTimestamp: string;  
+    updatedTimestamp: string;  
+    theme: Theme | null;
+    user: User | null;
+    comment?: Comment[] | null;
 }

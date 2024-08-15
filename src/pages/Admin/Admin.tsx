@@ -4,6 +4,11 @@ import FormularioTema from '../../components/Tema/formularioTema/FormularioTema'
 import DeletarTema from '../../components/Tema/deletarTema/DeletarTema'
 import ListaTemas from '../../components/Tema/listaTema/ListaTemas';
 import { AuthContext } from '../../contexts/AuthContext';
+import ListaPostagens from '../../components/ListaPostagens/ListaPostagens';
+import FormularioPostagem from '../../components/FormularioPostagem/FormularioPostagem';
+import ModalPostagem from '../../components/ModalPostagem/ModalPostagem';
+import DeletarPostagem from '../../components/DeletarPostagem/DeletarPostagem';
+import Home from '../Home/Home';
 
 
 interface NavLinkProps {
@@ -44,6 +49,13 @@ function Admin() {
                 </Link>
                 <div className='border-y border-dark-accent py-4'>
                     <ul className='flex flex-col gap-1'>
+                        <AdminLink to="postagens" >Gerenciar Postagens</AdminLink>
+                        <ModalPostagem/>
+
+                    </ul>
+                </div>
+                <div className='border-y border-dark-accent py-4'>
+                    <ul className='flex flex-col gap-1'>
                         <AdminLink to="temas" >Lista de temas</AdminLink>  
                     <AdminLink to="cadastrarTema">Cadastrar tema</AdminLink>    
     
@@ -54,11 +66,16 @@ function Admin() {
             <div className='flex flex-grow justify-center p-4'>
                 <Routes>
                     <Route path="/" element={<AdminHome/>} />
-
                     <Route path="temas" element={<ListaTemas />} />
                     <Route path="cadastrarTema" element={<FormularioTema />} />
                     <Route path="temas/editarTema/:id" element={<FormularioTema />} />
                     <Route path="temas/deletarTema/:id" element={<DeletarTema />} />
+                    <Route path="cadastroPostagem" element={<FormularioPostagem />} />
+                    <Route path="editarPostagem/:id" element={<FormularioPostagem />} />
+                    <Route path="deletarPostagem/:id" element={<DeletarPostagem/>} />
+                    <Route path="postagens" element={<ListaPostagens />} />
+                    <Route path="home" element={<Home />} />
+
                 </Routes>
             </div>
         </div>
@@ -70,7 +87,7 @@ function AdminHome(){
 
     const {usuario} = useContext(AuthContext)
     return (
-        <div className='flex flex-col items-center bg-light-background3 flex-grow justify-center'>
+        <div className='flex flex-col items-center bg-light-background3  dark:bg-dark-background3 flex-grow justify-center'>
             <h1 className='font-serif text-3xl'>Bom dia administrador <span className='text-dark-accent'>{usuario.name}</span>!</h1>
         <p>Selecione uma opção do menu ao lado.</p>
         </div>

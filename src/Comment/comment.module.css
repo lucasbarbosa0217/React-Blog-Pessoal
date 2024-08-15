@@ -1,0 +1,44 @@
+.userDetailComment{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 1rem;
+    color: var(--accent-active);
+    font-weight:700;
+}
+
+.userDetailComment img{
+    width: 3rem;
+    border-radius: 1000rem;
+}
+
+.time{
+    font-size: 0.8rem;
+    color: var(--text-detail);
+    font-weight: 500
+}
+
+.user{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.main{
+    padding-top: 0.5rem;
+    border-top: 0.125rem solid var(--background2);
+}
+
+.divider {
+    flex-grow: 1;
+    height: 0.0625rem;
+    background-color: var(--text-detail);
+}
+
+.commentText{
+    padding: 1rem 1rem 0 0;
+    padding: 1rem;
+
+}

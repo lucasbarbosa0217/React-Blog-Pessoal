@@ -1,0 +1,29 @@
+{
+	"id": 1,
+	"title": "A minha experiência jogando Undertale (de novo)",
+	"text": "Esse é o primeiro post do meu blog, sejam bem-vindos... Tipo, eu tô criando isso aqui mais para treinar minhas habilidades de programação, então não vai ser o melhor blog do mundo, mas juro que vou me esforçar.<br /><br />Bom, a primeira coisa que me veio à cabeça para esse primeiro blog foi falar de Undertale. Sou um grande fã desse jogo, e recentemente (por conta do desemprego) eu fiquei muito viciado em assistir vídeos de teorias sobre ele e sobre Deltarune, seu spin-off.<br />Decidi então jogar a rota pacifista do jogo novamente, eu estava precisando jogar algo mais leve e engraçado para passar o tempo.<br>Eu joguei o início do jogo em call com dois amigos meus, o Gabriel (famously known as Abat and Apato) e a Alexandra (famously known as Ale, Bunny, Noelle e etc.). Eles dublaram o Papyrus e o Sans enquanto eu transmitia a tela do jogo para eles. Bom... eles meio que foram forçados por mim a fazer isso, então não foi tão engraçado quanto poderia ser, mas mesmo assim deixou a experiência esquelética mais engraçada. A Ale foi contra o estereótipo padrão de fazer a voz monótona e irônica do Sans, mas sim fez uma voz extremamente aguda que o supressor de ruído do Discord não deixava passar para nós, então às vezes ficava só um ruído meio agudo indo e voltando enquanto ela dava vida ao esqueleto.<br /><br />Após a sessão de Snowdin, eu joguei o jogo sozinho mesmo e fiz os dates com a Undyne e o Papyrus, e viramos melhores amigos. Prossegui <b>[proceed.]</b> jogando e cheguei em Hotland (ou Terraquente porque eu estava jogando um mod que traduzia o jogo) e me diverti com o Metatton.<br /><br />Cheguei então na \"terrível\" batalha com o Asgore, que demorei umas boas cinco tentativas para ganhar, e então eu perdoei ele! Para logo o Flowey chegar e matar ele. A batalha com o Omega Flowey foi bem fácil, acho que eu de 12 anos ficava com muito medo da aparência grotesca dele e acabava perdendo sem motivo.<br /><br />Jogar esse jogo sendo agora adulto (e tentando ser desenvolvedor) faz perceber que mesmo projetos que pareçam simples realmente podem impactar a vida de várias pessoas. Undertale pode não ser o jogo mais bonito e mais complexo, mas para mim ele é lindo.",
+	"urlpath": "a-minha-experiencia-jogando-undertale-de-novo",
+	"createdTimestamp": "2024-07-27T23:07:40.120637",
+	"updatedTimestamp": "2024-07-27T23:07:40.120707",
+	"theme": {
+		"id": 1,
+		"description": "Undertale"
+	},
+	"user": {
+		"id": 1,
+		"name": "Lucas Lalarcas",
+		"email": "lucasbarbosa0217@gmail.com",
+		"photo": "https://firebasestorage.googleapis.com/v0/b/blog-a5aab.appspot.com/o/userProfileImage%2F120b8d3a-208b-409c-8d43-03ea3d60ac1c.jpg?alt=media",
+		"roles": [
+			{
+				"id": 1,
+				"name": "ROLE_ADMIN"
+			},
+			{
+				"id": 2,
+				"name": "ROLE_USER"
+			}
+		]
+	},
+	"comment": []
+}

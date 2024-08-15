@@ -1,20 +1,30 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { toastAlerta } from "../../utils/toasAlerts";
 
 function Header() {
     let navigate = useNavigate()
 
-    function handleNavigate() {
-        navigate("/login")
-    }
+  
 
 
     const { usuario, handleLogout } = useContext(AuthContext)
 
+
+    function handleNavigate() {
+
+        if (usuario.token){
+            navigate("/perfil")
+        }else{
+            navigate("/login")
+        }
+    }
+
     function logout() {
         handleLogout()
-        alert('Usuário deslogado com sucesso')
+        toastAlerta('Usuário deslogado com sucesso', 'sucess')
+
         navigate('/login')
     }
 

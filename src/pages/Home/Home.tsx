@@ -2,6 +2,7 @@ import { useContext } from "react";
 import lua from "../../assets/moon.png"
 import { AuthContext} from "../../contexts/AuthContext";
 import styles from "./glow.module.css"
+import ListaDeslogado from "../../components/ListaPostagens/ListaDeslogado";
 
 function Home() {
 
@@ -9,7 +10,7 @@ function Home() {
 
     return (
         <>
-            <div className=" bg-light-background3  dark:bg-dark-background1 flex-grow grid sm:grid-cols-1 md:grid-cols-2" >
+            <div className=" bg-light-background3  dark:bg-dark-background1 p-8 flex-grow grid sm:grid-cols-1 md:grid-cols-2" >
 
                 <div className="flex justify-center flex-col text-center p-8">
                     <h1 className="text-4xl font-serif">Seja bem vindo ao blog do Lucas{usuario.name ? ", "+usuario.name : ""}</h1>
@@ -21,8 +22,9 @@ function Home() {
 
                     <img alt="Lua" src={lua} className={` ${styles.glow} w-[20rem] transition-all`}></img>
                 </div>
-             
             </div>
+            <ListaDeslogado />
+
         </>
     )
 }
