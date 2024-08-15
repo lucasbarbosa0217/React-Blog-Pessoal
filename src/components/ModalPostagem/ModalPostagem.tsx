@@ -11,7 +11,7 @@ function ModalPostagem() {
     return (
         <>
             <Popup
-                trigger={<button className=' rounded px-4 hover:bg-white hover:text-indigo-800'>Nova postagem</button>} modal>
+                trigger={<button className={`text-light-textContent text-start p-2 text-dark-textContent bg-light-background2 dark:bg-dark-background1 hover:bg-light-background1`}>Nova postagem</button>} modal>
                 <div>
                     <FormularioPostagem />
                 </div>

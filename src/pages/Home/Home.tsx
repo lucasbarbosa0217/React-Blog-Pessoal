@@ -19,11 +19,15 @@ function Home() {
                 </div>
 
                 <div className="flex items-center justify-center">
-
                     <img alt="Lua" src={lua} className={` ${styles.glow} w-[20rem] transition-all`}></img>
                 </div>
             </div>
-            <ListaDeslogado />
+            <div className="container flex flex-col items-center w-full p-2 self-center dark:border-t mt-6">
+                <h1 className="font-serif text-4xl self-start my-8 font-medium">Posts do blog:</h1>
+
+                <ListaDeslogado />
+
+            </div>
 
         </>
     )

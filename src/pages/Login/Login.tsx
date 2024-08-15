@@ -77,7 +77,7 @@ const Login = () => {
 
             </form>
             <p className='text-center mt-4'>Ainda não tem uma conta?{" "}
-                <Link to="/cadastro" >Cadastre-se</Link>
+                <Link to="/cadastro" className='text-blue-500 underline' >Cadastre-se</Link>
 
             </p>
 

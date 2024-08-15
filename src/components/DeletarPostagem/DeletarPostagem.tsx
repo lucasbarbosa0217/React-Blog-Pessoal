@@ -5,6 +5,8 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { buscar, deletar } from '../../services/Service'
 import { toastAlerta } from '../../utils/toasAlerts'
 
+
+
 function DeletarPostagem() {
     const [postagem, setPostagem] = useState<Blog>({} as Blog)
 
@@ -45,7 +47,7 @@ function DeletarPostagem() {
     }, [id])
 
     function retornar() {
-        navigate("/admin/postagens")
+        navigate("/postagens")
     }
 
     async function deletarPostagem() {
@@ -55,9 +57,7 @@ function DeletarPostagem() {
                     'Authorization': token
                 }
             })
-
-            toastAlerta('Postagem apagada com sucesso!', 'sucess')
-
+            toastAlerta('Postagem apagada com sucesso', 'sucess')
 
         } catch (error) {
             toastAlerta('Erro ao apagar a Postagem', 'error')

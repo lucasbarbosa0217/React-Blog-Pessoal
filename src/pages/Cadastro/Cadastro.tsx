@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import  User  from '../../models/User';
+import User from '../../models/User';
 import { cadastrarUsuario } from '../../services/Service';
 import { RotatingLines } from 'react-loader-spinner';
 import { toastAlerta } from '../../utils/toasAlerts';
@@ -153,7 +153,12 @@ function Cadastro() {
                         /> :
                             <span>Cadastrar</span>}
                     </button>
+
                 </div>
+                <p className='text-center mt-4'>Já tem uma conta?{" "}
+                    <Link to="/login" className='text-blue-500 underline' >Entrar</Link>
+
+                </p>
             </form>
         </div>
     );

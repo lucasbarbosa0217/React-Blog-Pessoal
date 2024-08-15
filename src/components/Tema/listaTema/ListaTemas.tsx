@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { DNA } from 'react-loader-spinner';
+import { BallTriangle, DNA } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import Theme from '../../../models/Theme';
@@ -44,14 +44,18 @@ function ListaTemas() {
     return (
         <>
             {temas.length === 0 && (
-                <DNA
-                    visible={true}
-                    height="200"
-                    width="200"
-                    ariaLabel="dna-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="dna-wrapper mx-auto"
-                />
+                <div className='w-full flex justify-center'>
+                    <BallTriangle
+                        height={100}
+                        width={100}
+                        radius={5}
+                        color="#f97316"
+                        ariaLabel="ball-triangle-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
             )}
             <div className="flex justify-center w-full my-4">
                 <div className="container flex flex-col">

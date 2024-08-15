@@ -4,7 +4,7 @@ import { Blog } from '../../models/Blog';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import { buscar } from '../../services/Service';
-import { DNA } from 'react-loader-spinner';
+import { BallTriangle, DNA } from 'react-loader-spinner';
 import CardDeslogado from '../CardPostagem/CardDeslogado';
 import { toastAlerta } from '../../utils/toasAlerts';
 
@@ -42,16 +42,21 @@ function ListaDeslogado() {
 
             <>
                 {postagens.length === 0 && (
-                    <DNA
-                        visible={true}
-                        height="200"
-                        width="200"
-                        ariaLabel="dna-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="dna-wrapper mx-auto"
-                    />
+                    <div className='w-full flex justify-center'>
+                        <BallTriangle
+                            height={100}
+                            width={100}
+                            radius={5}
+                            color="#f97316"
+                            ariaLabel="ball-triangle-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            visible={true}
+                        />
+                    </div>
+                    
                 )}
-                <div className='container mx-auto my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                <div className='  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow'>
                     {postagens.map((postagem) => (
                         <CardDeslogado key={postagem.id} post={postagem} />
                     ))}
