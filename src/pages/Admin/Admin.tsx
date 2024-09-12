@@ -6,7 +6,6 @@ import ListaTemas from '../../components/Tema/listaTema/ListaTemas';
 import { AuthContext } from '../../contexts/AuthContext';
 import ListaPostagens from '../../components/ListaPostagens/ListaPostagens';
 import FormularioPostagem from '../../components/FormularioPostagem/FormularioPostagem';
-import ModalPostagem from '../../components/ModalPostagem/ModalPostagem';
 import DeletarPostagem from '../../components/DeletarPostagem/DeletarPostagem';
 import Home from '../Home/Home';
 import { ArrowDown, ArrowUp } from '@phosphor-icons/react';
@@ -60,7 +59,7 @@ function Admin() {
 
     const location = useLocation();
     return (
-        <div className='flex flex-col flex-nowrap flex-grow'>
+        <div className='flex flex-col flex-nowrap flex-grow  overflow-auto'>
 
             <aside className='flex flex-col flex-grow-0 bg-light-background2 dark:bg-dark-background2 md:min-w-[20rem] py-4'>
                 <div className='flex justify-center gap-4' onClick={handleRecolhido}>
@@ -74,7 +73,7 @@ function Admin() {
 
                         <div ref={divRef} className={`flex flex-col transition-all duration-300 ease-in-out overflow-hidden`}>
                             <AdminLink to="postagens" >Gerenciar Postagens</AdminLink>
-                            <ModalPostagem />
+                            <AdminLink to="cadastrarPostagem">Escrever postagem</AdminLink>
                             <AdminLink to="temas" >Lista de temas</AdminLink>
                             <AdminLink to="cadastrarTema">Cadastrar tema</AdminLink>
                         </div>
@@ -90,7 +89,7 @@ function Admin() {
                     <Route path="cadastrarTema" element={<FormularioTema />} />
                     <Route path="temas/editarTema/:id" element={<FormularioTema />} />
                     <Route path="temas/deletarTema/:id" element={<DeletarTema />} />
-                    <Route path="cadastroPostagem" element={<FormularioPostagem />} />
+                    <Route path="cadastrarPostagem" element={<FormularioPostagem />} />
                     <Route path="editarPostagem/:id" element={<FormularioPostagem />} />
                     <Route path="deletarPostagem/:id" element={<DeletarPostagem />} />
                     <Route path="postagens" element={<ListaPostagens />} />

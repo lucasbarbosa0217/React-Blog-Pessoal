@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Comment } from "../models/Comment";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
@@ -33,8 +34,19 @@ export const deletar = async (url: string, header: Object) => {
     await api.delete(url, header);
 }
 
-export const criarComentario = async (url: string, dados: Object, setDados: Function, header: Object) => {
+export const criarComentario = async (url: string, dados: Object, setDados: Function, listaComentario: Comment[] ,header: Object) => {
     const resposta = await api.post(url, dados, header);
-    setDados(resposta.data)
+    setDados(
+        [resposta.data, ...listaComentario]
+    )
+}
+
+export const listar = async (url: string, dados: Object, setDados: Function) => {
+    const resposta = await api.get(url, dados);
+
+    setDados((prev) => {
+
+        resposta.data
+    })
 }
 

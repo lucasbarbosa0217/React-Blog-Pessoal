@@ -1,0 +1,11 @@
+.post img{
+    margin: 0 auto;
+    display:block;
+    max-width: 100%;
+    max-height: 20rem;
+}
+
+.post{
+    max-width: 50%;
+    padding: 2rem;
+}

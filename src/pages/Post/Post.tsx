@@ -3,12 +3,13 @@ import { parseISO, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useEffect, useRef, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Comment from "../Comment/Comment";
-import { Blog } from "../models/Blog";
-import { buscar,  cadastrar, criarComentario } from "../services/Service";
-import { AuthContext } from "../contexts/AuthContext";
-import { toastAlerta } from "../utils/toasAlerts";
+import Comment from "../../Comment/Comment";
+import { Blog } from "../../models/Blog";
+import { buscar,  cadastrar, criarComentario } from "../../services/Service";
+import { AuthContext } from "../../contexts/AuthContext";
+import { toastAlerta } from "../../utils/toasAlerts";
 import { BallTriangle } from "react-loader-spinner";
+import CriarComentario from "../../components/CriarComentario/CriarComentario";
 
 
 export default function Post() {
@@ -82,6 +83,8 @@ export default function Post() {
                             </p>
                         </div>
                     </aside>
+
+                    <CriarComentario id={post.id}>asdasdas</CriarComentario>
 
                 </main>
             ) : 

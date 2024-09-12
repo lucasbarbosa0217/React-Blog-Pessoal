@@ -13,7 +13,7 @@ interface CardDeslogadoProps {
 function CardDeslogado({ post }: CardDeslogadoProps) {
     return (
         <>
-        <Link to={`/blog/${post.urlpath}`} >
+        <Link to={`/blog/${post.urlPath}`} >
         <div className='flex flex-col overflow-hidden justify-between shadow-md bg-light-background3 dark:bg-dark-background3'>
             <header className='p-2 bg-light-accent text-dark-textContent'>Postagem</header>
             <div className="flex w-full p-4 gap-4 items-center">

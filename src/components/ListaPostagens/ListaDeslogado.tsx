@@ -14,6 +14,8 @@ function ListaDeslogado() {
 
 
     const [postagens, setPostagens] = useState<Blog[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     let navigate = useNavigate();
 
@@ -21,14 +23,18 @@ function ListaDeslogado() {
 
     async function buscarPostagens() {
         try {
+            setIsLoading(true);
             await buscar('/postagens', setPostagens, {
-             
+
             });
+            setIsLoading(false);
+
         } catch (error: any) {
             if (error.toString().includes('403')) {
                 toastAlerta('O token expirou, favor logar novamente', 'info')
 
-           
+                setIsLoading(false);
+
             }
         }
     }
@@ -41,7 +47,7 @@ function ListaDeslogado() {
         <>
 
             <>
-                {postagens.length === 0 && (
+                {isLoading ? (
                     <div className='w-full flex justify-center'>
                         <BallTriangle
                             height={100}
@@ -55,12 +61,18 @@ function ListaDeslogado() {
                         />
                     </div>
                     
-                )}
-                <div className='  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow'>
-                    {postagens.map((postagem) => (
-                        <CardDeslogado key={postagem.id} post={postagem} />
-                    ))}
-                </div>
+                ) :
+                    postagens.length > 0 ?
+                    <div className='  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow'>
+                        {postagens.map((postagem) => (
+                            <CardDeslogado key={postagem.id} post={postagem} />
+                        ))}
+                    </div> :
+                    "Não postaram nenhum blog ainda..."
+            
+            }
+                
+              
             </>
         </>
     );

@@ -12,7 +12,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Theme from "./components/Theme/Theme.tsx";
 import Admin from "./pages/Admin/Admin.tsx";
-import Post from "./Post/Post.tsx";
+import Post from "./pages/Post/Post.tsx";
 import Perfil from "./pages/Perfil/Perfil.tsx";
 import { toastAlerta } from "./utils/toasAlerts.ts";
 import { ToastContainer } from "react-toastify";

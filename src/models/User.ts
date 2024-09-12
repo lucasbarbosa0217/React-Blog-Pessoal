@@ -3,7 +3,8 @@ import { Comment } from './Comment';
 import  Role  from './Role';
 
 export default interface User {
-    id: number;
+    id: string;
+    _id?:string;
     name?: string;
     email?: string;
     password?: string;

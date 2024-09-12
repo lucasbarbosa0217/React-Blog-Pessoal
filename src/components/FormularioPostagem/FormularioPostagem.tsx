@@ -5,7 +5,9 @@ import Theme from '../../models/Theme';
 import { Blog } from '../../models/Blog';
 import { atualizar, buscar, cadastrar } from '../../services/Service';
 import { toastAlerta } from '../../utils/toasAlerts';
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import styles from "./post.module.css"
 
 
 function FormularioPostagem() {
@@ -24,16 +26,10 @@ function FormularioPostagem() {
         blog: null
     });
 
-    const [postagem, setPostagem] = useState<Blog>({
-        id: 0,
-        title: '',
-        text: '',
-        createdTimestamp: '',
-        updatedTimestamp: "",
-        theme: null,
-        user: null,
-        comment: null
-    });
+    const [value, setValue] = useState('');
+
+
+    const [postagem, setPostagem] = useState<Blog>({} as Blog);
 
     async function buscarPostagemPorId(id: string) {
         await buscar(`/postagens/${id}`, setPostagem, {
@@ -102,7 +98,7 @@ function FormularioPostagem() {
 
         if (id != undefined) {
             try {
-                await atualizar(`/postagens`, postagem, setPostagem, {
+                await atualizar(`/postagens`, { ...postagem, text: value }, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
@@ -122,7 +118,7 @@ function FormularioPostagem() {
             }
         } else {
             try {
-                await cadastrar(`/postagens`, postagem, setPostagem, {
+                await cadastrar(`/postagens`, {...postagem, text: value}, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
@@ -146,50 +142,71 @@ function FormularioPostagem() {
 
     const carregandoTema = tema.description === '';
 
-    return (
-        <div className="container flex flex-col mx-auto items-center dark:bg-light-background3 text-light-textContent">
-            <h1 className="text-4xl text-center my-8">{id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}</h1>
+    let modules = {
+        toolbar: [
+            [{ 'header': [1, 2, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+            ['link', 'image'],
+            ['clean']
+        ],
+    };
 
-            <form onSubmit={gerarNovaPostagem} className="flex flex-col w-1/2 gap-4">
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Titulo da postagem</label>
-                    <input
-                        value={postagem.title}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                        type="text"
-                        placeholder="Titulo"
-                        name="title"
-                        required
-                        className="border-2 border-slate-700 rounded p-2"
-                    />
-                </div>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Texto da postagem</label>
-                    <input
-                        value={postagem.text}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                        type="text"
-                        placeholder="Texto"
-                        name="text"
-                        required
-                        className="border-2 border-slate-700 rounded p-2"
-                    />
-                </div>
-                <div className="flex flex-col gap-2">
-                    <p>Tema da postagem</p>
-                    <select name="tema" id="tema" className='border p-2 border-slate-800 rounded' onChange={(e) => buscarTemaPorId(e.currentTarget.value)}>
-                        <option value="" selected disabled>Selecione um tema</option>
-                        {temas.map((tema) => (
-                            <>
-                                <option value={tema.id} >{tema.description}</option>
-                            </>
-                        ))}
-                    </select>
-                </div>
-                <button disabled={carregandoTema} type='submit' className='rounded disabled:bg-slate-200 bg-light-accent hover:bg-light-accentSelected text-white font-bold w-1/2 mx-auto block py-2'>
-                    {carregandoTema ? <span>Carregando</span> : id !== undefined ? 'Editar' : 'Cadastrar'}
-                </button>
-            </form>
+        let formats = [
+            'header',
+            'bold', 'italic', 'underline', 'strike', 'blockquote',
+            'list', 'bullet', 'indent',
+            'link', 'image'
+        ];
+
+    return (
+        <div className="w-full flex flex-row flex-nowrap mx-auto items-center dark:bg-dark-background3 h-full gap-4 ">
+            <div className='flex-col items-center  w-1/2 p-4' >
+                <h1 className="text-4xl text-center my-8">{id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}</h1>
+
+                <form onSubmit={gerarNovaPostagem} className="flex flex-col  gap-4">
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="titulo">Titulo da postagem</label>
+                        <input
+                            value={postagem.title}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            type="text"
+                            placeholder="Titulo"
+                            name="title"
+                            required
+                            className=" rounded p-3 dark:bg-dark-background2 outline-none "
+                        />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="titulo">Texto da postagem</label>
+
+
+                        <ReactQuill theme="snow" value={value} onChange={setValue}
+                            modules={modules}
+                            formats={formats}
+                            className='bg-light-background2 text-light-textContent font-sans max-h-[20rem] overflow-auto'
+                        />
+
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p>Tema da postagem</p>
+                        <select name="tema" id="tema" className='border p-2 dark:bg-dark-background2 border-slate-800 rounded' onChange={(e) => buscarTemaPorId(e.currentTarget.value)}>
+                            <option value="" selected disabled>Selecione um tema</option>
+                            {temas.map((tema) => (
+                                <>
+                                    <option value={tema.id} >{tema.description}</option>
+                                </>
+                            ))}
+                        </select>
+                    </div>
+                    <button disabled={carregandoTema} type='submit' className='rounded disabled:bg-slate-200 bg-light-accent hover:bg-light-accentSelected text-white font-bold w-1/2 mx-auto block py-2'>
+                        {carregandoTema ? <span>Carregando</span> : id !== undefined ? 'Editar' : 'Cadastrar'}
+                    </button>
+                </form>
+
+            </div>
+            <p className={`${styles.post} items-start justify-start w-30 max-h-[45rem] overflow-auto self-start h-full whitespace-break-spaces break-words`} dangerouslySetInnerHTML={{ __html: value }}></p>
+
         </div>
     );
 }
