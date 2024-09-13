@@ -11,26 +11,37 @@ interface CardDeslogadoProps {
 
 
 function CardDeslogado({ post }: CardDeslogadoProps) {
+
+    const regex = /<img[^>]*src="([^"]*)"/i;
+    const match = post.text.match(regex);
+
+
+
     return (
         <>
-        <Link to={`/blog/${post.urlPath}`} >
-        <div className='flex flex-col overflow-hidden justify-between shadow-md bg-light-background3 dark:bg-dark-background3'>
-            <header className='p-2 bg-light-accent text-dark-textContent'>Postagem</header>
-            <div className="flex w-full p-4 gap-4 items-center">
-                <img src={post.user?.photo} className='h-12 w-12 rounded-full' alt="Imagem de Perfil" />
-                <h3 className='text-lg font-bold  text-center flex-grow'>{post.user?.name}</h3>
-            </div>
-            <div className='px-4 pb-4 flex flex-col gap-4'>
-                <h4 className='text-lg font-semibold uppercase'>{post.title}</h4>
-                <p>{post.text.substring(0 , 100)+"..."}</p>
-                <p>Tema:{" "}{post.theme?.description}</p>
-                <p>Data: {new Intl.DateTimeFormat(undefined, {
-                    dateStyle: 'full',
-                    timeStyle: 'medium',
-                }).format(new Date(post.createdTimestamp))}</p>
-            </div>
-        </div>
-        </Link>
+            <Link to={`/blog/${post.urlPath}`} >
+                <div className='flex flex-col overflow-hidden justify-between shadow-md bg-light-background3 dark:bg-dark-background3 h-full  rounded-lg'>
+
+                    <div className='flex flex-col flex-grow '>
+                        {match  ? <img src={`${match[1]}`} className='w-full max-h-[10rem] object-cover'></img>: "" }
+                        
+                        <div className='p-4 flex flex-col justify-between flex-grow'>
+                            <h4 className='text-2xl font-semibold font-serif'>{post.title}</h4>
+                            <p className="italic text-light-textDetail dark:text-dark-textDetail" dangerouslySetInnerHTML={{ __html: post.text.substring(0, 150) + "..." }}></p>
+                            <div className='flex flex-row justify-between bg-dark-background2 p-2 mt-4 items-center rounded-md'>
+                                <p className='font-bold'>{post.theme?.description}</p>
+                                <p className="text-sm text-light-textDetail dark:text-dark-textDetail">{new Intl.DateTimeFormat(undefined, {
+                                    dateStyle: 'short',
+                                    timeStyle: 'medium',
+                                }).format(new Date(post.createdTimestamp+"Z"))}</p>
+                            </div>
+                      
+
+                        </div>
+
+                    </div>
+                </div>
+            </Link>
         </>
     )
 }

@@ -1,23 +1,35 @@
 .glow{
-    filter: drop-shadow(0px 0px 35px rgba(237, 132, 40, 1));
+    filter: drop-shadow(0px 0px 100px rgba(237, 132, 40, 1));
         animation: rotate 22s linear infinite;
 
 }
 
 
+.lua{
+        transform: translate(-150px, 200px) ;
+     
+bottom: 0;
+    z-index: -1;
+}
+
+
+.star{
+    z-index: -2;
+}
+
 
 @keyframes rotate {
     from {
 
-                transform: rotate(0deg) scale(1);
+                transform: rotate(0deg)
 
     }
     50% {
-                transform: rotate(360deg) scale(1.4);
+                transform: rotate(360deg)
     }
 
     100%{
-                        transform: rotate(720deg) scale(1);
+                        transform: rotate(720deg)
 
     }
 }
