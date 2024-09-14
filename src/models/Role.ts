@@ -1,7 +1,7 @@
 import  User  from './User';
 
 export default interface Role {
-    id: number;
+    id: string;
     name: string;
     users: User[];
 }

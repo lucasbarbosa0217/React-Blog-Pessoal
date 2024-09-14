@@ -10,7 +10,7 @@ function Cadastro() {
 
     const [confirmaSenha, setConfirmaSenha] = useState<string>('');
     const [usuario, setUsuario] = useState<User>({
-        id: 0,
+        id: "",
         name: '',
         email: '',
         password: '',
@@ -21,7 +21,7 @@ function Cadastro() {
     });
 
     const [usuarioResposta, setUsuarioResposta] = useState<User>({
-        id: 0,
+        id: "",
         name: '',
         email: '',
         password: '',
