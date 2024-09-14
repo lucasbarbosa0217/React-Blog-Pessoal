@@ -34,7 +34,7 @@ function Cadastro() {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (usuarioResposta.id !== 0) {
+        if (usuarioResposta.id !== "") {
             back();
         }
     }, [usuarioResposta]);
