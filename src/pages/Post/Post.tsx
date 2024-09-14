@@ -52,8 +52,8 @@ export default function Post() {
     return (
         <div className={styles.main}>
             {post ? (
-                <main className="flex flex-col m-4">
-                    <main className={`px-6 py-12 max-w-[45rem] self-center flex flex-col gap-4 bg-light-background3 dark:bg-dark-background3`}>
+                <main className="flex flex-col m-4 w-full">
+                    <main className={`px-6 py-12 max-w-[45rem] w-full self-center flex flex-col gap-4 bg-light-background3 dark:bg-dark-background3 ${styles.post}`}>
                         <div className={styles.headerblog}>
                             <p>{relativeTime}</p>
                             <div className={`${styles.divider} bg-light-textDetail`}></div>
@@ -62,7 +62,7 @@ export default function Post() {
                             </a>
                         </div>
                         <h1 className="text-4xl font-serif">{post.title}</h1>
-                        <p dangerouslySetInnerHTML={{ __html: post.text }}></p>
+                        <p dangerouslySetInnerHTML={{ __html: post.text }} ></p>
                     </main>
                     <aside className={`px-6 py-12 w-full max-w-[45rem] self-center items-center flex flex-row gap-4 bg-light-background3 dark:bg-dark-background3 m-4 ` }>
                         <img
