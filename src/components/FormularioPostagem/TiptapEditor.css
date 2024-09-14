@@ -1,22 +1,11 @@
-.editor-buttons {
-  margin-bottom: 10px;
-  display:flex;
-}
 
 .editor-buttons button {
-  background-color: #007bff;
-  color: white;
+  
   border: none;
   padding: 10px 15px;
-  margin-right: 5px;
-  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
   
-}
-
-.editor-buttons button:hover {
-  background-color: #0056b3;
 }
 
 .editor-buttons button:focus {

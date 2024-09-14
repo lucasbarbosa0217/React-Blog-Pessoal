@@ -17,3 +17,38 @@
         margin: 0 auto;
 
 }
+
+
+.post ul, .post ol {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside; 
+}
+
+.post ul {
+    list-style-type: disc; 
+}
+
+.post ol {
+    list-style-type: decimal; 
+}
+
+.post ul li, .post ol li {
+    margin-left: 1.6rem; 
+}
+
+.post ul li p, .post ol li p {
+    display:inline;
+}
+
+.post code {
+    font-family: 'Fira Code', monospace;
+   
+    color: #d6336c;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    border: 1px solid #e1e1e1;
+    display: inline-block;
+    white-space: nowrap;
+}

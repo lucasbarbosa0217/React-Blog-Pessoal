@@ -73,7 +73,7 @@ function Admin() {
 
                         <div ref={divRef} className={`flex flex-col transition-all duration-300 ease-in-out overflow-hidden`}>
                             <AdminLink to="postagens" >Gerenciar Postagens</AdminLink>
-                            <AdminLink to="cadastrarPostagem">Escrever postagem</AdminLink>
+                            <AdminLink to="/editor/postagem">Escrever postagem</AdminLink>
                             <AdminLink to="temas" >Lista de temas</AdminLink>
                             <AdminLink to="cadastrarTema">Cadastrar tema</AdminLink>
                         </div>
@@ -82,14 +82,13 @@ function Admin() {
 
             </aside>
 
-            <div className='flex flex-grow flex-col justify-start p-4 min-h-[75vh]'>
+            <div className='flex flex-grow flex-col justify-start p-4 '>
                 <Routes>
                     <Route path="/" element={<AdminHome />} />
                     <Route path="temas" element={<ListaTemas />} />
                     <Route path="cadastrarTema" element={<FormularioTema />} />
                     <Route path="temas/editarTema/:id" element={<FormularioTema />} />
                     <Route path="temas/deletarTema/:id" element={<DeletarTema />} />
-                    <Route path="cadastrarPostagem" element={<FormularioPostagem />} />
                     <Route path="editarPostagem/:id" element={<FormularioPostagem />} />
                     <Route path="deletarPostagem/:id" element={<DeletarPostagem />} />
                     <Route path="postagens" element={<ListaPostagens />} />

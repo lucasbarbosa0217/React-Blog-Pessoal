@@ -48,7 +48,7 @@ const TiptapEditor = ({ onContentChange, initialContent }: iEditor) => {
             }
         },
         onCreate: ({ editor }) => {
-            setContent(editor.getHTML());
+            setContent("Que tal escrever um pouco?");
             if (onContentChange) {
                 onContentChange(editor.getHTML());
             }
@@ -103,8 +103,7 @@ const TiptapEditor = ({ onContentChange, initialContent }: iEditor) => {
 
     const toggleBullet = (e) => {
         e.preventDefault();
-        editor.chain().focus().toggleBulletList().run();
-
+        editor.chain().focus().toggleBulletList().run()
     }
 
     const toggleOrderedList = (e) => {
@@ -112,14 +111,10 @@ const TiptapEditor = ({ onContentChange, initialContent }: iEditor) => {
         editor.chain().focus().toggleOrderedList().run()
     }
 
-    const toggleCode = (e) => {
-        e.preventDefault();
-        editor.chain().focus().toggleCode().run()
-    }
 
     const setHorizontalRule = (e) => {
         e.preventDefault();
-        editor.chain().focus().setHorizontalRule();
+        editor.chain().focus().setHorizontalRule().run();
     }
 
 
@@ -140,14 +135,15 @@ const TiptapEditor = ({ onContentChange, initialContent }: iEditor) => {
     const file = useRef(null);
 
     return (
-        <div className='bg-dark-background2 w-full max-w-[47rem] p-4 mx-auto rounded-lg'>
-            <div className="editor-buttons w-full max-w-[45rem] mx-auto">
+        <div className='w-full flex flex-row overflow-auto h-screen bg-dark-background1 rounded-l-xl'>
+            <div className="editor-buttons  bg-light-background3 dark:bg-dark-background1 w-fit  sticky top-0 flex flex-col flex-wrap gap-x-0 gap-y-2">
                 <button onClick={toggleBold}><TextBolder/></button>
                 <button onClick={toggleItalic}><TextItalic/></button>                
                 <button onClick={toggleHeading}>H2</button>
                 <button onClick={toggleBullet}><ListBullets/></button>
                 <button onClick={toggleOrderedList}><ListNumbers/></button>
-                <button onClick={toggleCode}><Code /></button>
+                <button onClick={setHorizontalRule}>__</button>
+
                 <button onClick={addYoutubeVideo}><YoutubeLogo/></button>
                 <button onClick={(e) => {
                     file.current.click()
@@ -166,7 +162,8 @@ const TiptapEditor = ({ onContentChange, initialContent }: iEditor) => {
            
             </div>
 
-            <EditorContent editor={editor} className={`w-full border dark:border-dark-background1 bg-dark-background1 max-w-[45rem] p-4 mx-auto min-h-[24rem] max-h-[50rem] overflow-auto flex flex-row flex-nowrap ${styles.post}`} />
+                <EditorContent editor={editor} placeholder="Que tal digitar um pouco?" className={` max-h-screen flex-grow  bg-light-background3 dark:bg-dark-background1 p-4 ${styles.post}`} />
+
         </div>
     );
 };
