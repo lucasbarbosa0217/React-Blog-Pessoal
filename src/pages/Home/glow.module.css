@@ -15,8 +15,20 @@ bottom: 0;
 
 .star{
     z-index: -2;
+        top: 0;
+
 }
 
+.back{
+    top: 0;
+        z-index: -3;
+
+}
+
+
+.text{
+    text-shadow: 2px 2px 2px #000000;
+}
 
 @keyframes rotate {
     from {

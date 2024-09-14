@@ -28,7 +28,7 @@ function CardDeslogado({ post }: CardDeslogadoProps) {
                         <div className='p-4 flex flex-col justify-between flex-grow'>
                             <h4 className='text-2xl font-semibold font-serif'>{post.title}</h4>
                             <p className="italic text-light-textDetail dark:text-dark-textDetail" dangerouslySetInnerHTML={{ __html: post.text.substring(0, 150) + "..." }}></p>
-                            <div className='flex flex-row justify-between bg-dark-background2 p-2 mt-4 items-center rounded-md'>
+                            <div className='flex flex-row justify-between  bg-light-background2 dark:bg-dark-background2 p-2 mt-4 items-center rounded-md'>
                                 <p className='font-bold'>{post.theme?.description}</p>
                                 <p className="text-sm text-light-textDetail dark:text-dark-textDetail">{new Intl.DateTimeFormat(undefined, {
                                     dateStyle: 'short',

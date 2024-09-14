@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./theme.css";
+import { Moon } from "@phosphor-icons/react";
 
 function Theme() {
     const [selectedOption, setSelectedOption] = useState("system");
@@ -59,9 +60,9 @@ function Theme() {
     };
 
     return (
-        <div className="text-dark-textContent fixed bottom-16 right-0 bg-light-accentt border-2 border-light-accentSelected bg-dark-accent text-light-text-accent h-12 w-84 transform translate-x-72 transition-transform duration-400 flex items-center hover:translate-x-0">
-            <div className="w-12 flex items-center justify-center">
-                <span className="material-symbols-outlined text-3xl">dark_mode</span>
+        <div className="text-dark-textContent bg-light-accent text-light-text-accent  flex items-center justify-center flex-grow-0 h-full  rounded-2xl">
+            <div className="px-2 flex items-center justify-center">
+                <Moon size={32}/>
             </div>
 
             <form className="flex h-full">
@@ -76,7 +77,7 @@ function Theme() {
                     />
                     <span>System</span>
                 </label>
-                <label className="option flex items-center justify-center gap-2 w-24 h-full cursor-pointer">
+                <label className="option flex items-center justify-center gap-2 w-24 h-full cursor-pointer ">
                     <input
                         type="radio"
                         name="theme"
@@ -87,7 +88,7 @@ function Theme() {
                     />
                     <span>Dark Mode</span>
                 </label>
-                <label className="option flex items-center justify-center gap-2 w-24 h-full cursor-pointerd">
+                <label className="option flex items-center justify-center gap-2 w-24 h-full cursor-pointer rounded-r-lg">
                     <input
                         type="radio"
                         name="theme"

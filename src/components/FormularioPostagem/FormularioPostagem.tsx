@@ -5,9 +5,8 @@ import Theme from '../../models/Theme';
 import { Blog } from '../../models/Blog';
 import { atualizar, buscar, cadastrar } from '../../services/Service';
 import { toastAlerta } from '../../utils/toasAlerts';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import styles from "./post.module.css"
+import Editor from './Editor';
 
 
 function FormularioPostagem() {
@@ -21,7 +20,7 @@ function FormularioPostagem() {
     const [temas, setTemas] = useState<Theme[]>([]);
 
     const [tema, setTema] = useState<Theme>({
-        id: 0,
+        id: "",
         description: '',
         blog: null
     });
@@ -31,20 +30,20 @@ function FormularioPostagem() {
 
     const [postagem, setPostagem] = useState<Blog>({} as Blog);
 
+
+    const [isLoading, setIsLoading] = useState("");
+
     async function buscarPostagemPorId(id: string) {
-        await buscar(`/postagens/${id}`, setPostagem, {
+        let text = await buscar(`/postagens/${id}`, setPostagem, {
             headers: {
                 Authorization: token,
             },
         });
+        setIsLoading(text)
     }
 
-    async function buscarTemaPorId(id: string) {
-        await buscar(`/temas/${id}`, setTema, {
-            headers: {
-                Authorization: token,
-            },
-        });
+     function handleTema(id: string) {
+         setPostagem({...postagem, theme: { id: id }})
     }
 
     async function buscarTemas() {
@@ -66,7 +65,6 @@ function FormularioPostagem() {
         buscarTemas();
         if (id !== undefined) {
             buscarPostagemPorId(id);
-            console.log(tema);
 
         }
     }, [id]);
@@ -94,10 +92,11 @@ function FormularioPostagem() {
     async function gerarNovaPostagem(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        console.log({ postagem });
+        console.log(JSON.stringify({ postagem }));
 
         if (id != undefined) {
             try {
+                console.log(value)
                 await atualizar(`/postagens`, { ...postagem, text: value }, setPostagem, {
                     headers: {
                         Authorization: token,
@@ -140,28 +139,17 @@ function FormularioPostagem() {
         }
     }
 
-    const carregandoTema = tema.description === '';
 
-    let modules = {
-        toolbar: [
-            [{ 'header': [1, 2, false] }],
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
-            ['link', 'image'],
-            ['clean']
-        ],
-    };
+    function handleContentChange(content) {
+        setValue(content)
+    }
 
-        let formats = [
-            'header',
-            'bold', 'italic', 'underline', 'strike', 'blockquote',
-            'list', 'bullet', 'indent',
-            'link', 'image'
-        ];
+    
+
 
     return (
         <div className="w-full flex flex-row flex-nowrap mx-auto items-center dark:bg-dark-background3 h-full gap-4 ">
-            <div className='flex-col items-center  w-1/2 p-4' >
+            <div className='flex-col items-center  w-full p-4' >
                 <h1 className="text-4xl text-center my-8">{id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}</h1>
 
                 <form onSubmit={gerarNovaPostagem} className="flex flex-col  gap-4">
@@ -177,35 +165,34 @@ function FormularioPostagem() {
                             className=" rounded p-3 dark:bg-dark-background2 outline-none "
                         />
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="w-full">
                         <label htmlFor="titulo">Texto da postagem</label>
 
 
-                        <ReactQuill theme="snow" value={value} onChange={setValue}
-                            modules={modules}
-                            formats={formats}
-                            className='bg-light-background2 text-light-textContent font-sans max-h-[20rem] overflow-auto'
-                        />
-
+                        {
+                          
+                          (isLoading || !id) &&
+                            <Editor onContentChange={handleContentChange} initialContent={isLoading} />
+                     
+                         }
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 ">
                         <p>Tema da postagem</p>
-                        <select name="tema" id="tema" className='border p-2 dark:bg-dark-background2 border-slate-800 rounded' onChange={(e) => buscarTemaPorId(e.currentTarget.value)}>
+                        <select name="tema" id="tema" className='border p-2 dark:bg-dark-background2 border-slate-800 rounded' onChange={(e) => handleTema(e.currentTarget.value)}>
                             <option value="" selected disabled>Selecione um tema</option>
                             {temas.map((tema) => (
                                 <>
-                                    <option value={tema.id} >{tema.description}</option>
+                                    <option value={tema.id} key={tema.id} selected={tema.id === postagem.theme.id} >{tema.description} </option>
                                 </>
                             ))}
                         </select>
                     </div>
-                    <button disabled={carregandoTema} type='submit' className='rounded disabled:bg-slate-200 bg-light-accent hover:bg-light-accentSelected text-white font-bold w-1/2 mx-auto block py-2'>
-                        {carregandoTema ? <span>Carregando</span> : id !== undefined ? 'Editar' : 'Cadastrar'}
+                    <button  type='submit' className='rounded disabled:bg-slate-200 bg-light-accent hover:bg-light-accentSelected text-white font-bold w-1/2 mx-auto block py-2'>
+                        { id !== undefined ? 'Editar' : 'Cadastrar'}
                     </button>
                 </form>
 
             </div>
-            <p className={`${styles.post} items-start justify-start w-30 max-h-[45rem] overflow-auto self-start h-full whitespace-break-spaces break-words`} dangerouslySetInnerHTML={{ __html: value }}></p>
 
         </div>
     );

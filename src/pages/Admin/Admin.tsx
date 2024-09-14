@@ -82,7 +82,7 @@ function Admin() {
 
             </aside>
 
-            <div className='flex flex-grow flex-col justify-start p-4'>
+            <div className='flex flex-grow flex-col justify-start p-4 min-h-[75vh]'>
                 <Routes>
                     <Route path="/" element={<AdminHome />} />
                     <Route path="temas" element={<ListaTemas />} />

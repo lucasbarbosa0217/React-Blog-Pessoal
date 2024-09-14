@@ -13,11 +13,16 @@ export const cadastrarUsuario = async (url: string, dados: Object, setDados: Fun
 export const login = async (url: string, dados: Object, setDados: Function) => {
     const resposta = await api.post(url, dados);
     setDados(resposta.data);
+    return resposta.data;
 }
 
 export const buscar = async (url: string, setDados: Function, header: Object) => {
     const resposta = await api.get(url, header);
     setDados(resposta.data);
+    if (resposta.data.text){
+        return resposta.data.text;
+
+    }
 }
 
 export const cadastrar = async (url: string, dados: Object, setDados: Function, header: Object) => {
@@ -26,8 +31,8 @@ export const cadastrar = async (url: string, dados: Object, setDados: Function, 
 }
 
 export const atualizar = async (url: string, dados: Object, setDados: Function, header: Object) => {
-    const resposta = await api.put(url, dados, header);
-    setDados(resposta.data);
+    const resposta = await api.put(url, dados, header)
+    setDados(resposta.data); 
 }
 
 export const deletar = async (url: string, header: Object) => {
@@ -41,6 +46,12 @@ export const criarComentario = async (url: string, dados: Object, setDados: Func
     )
 }
 
+
+export const postarFoto = async (url: string, dados: FormData, header: Object, )  => {
+    const resposta = await api.post(url, dados, header);
+    return resposta.data
+}
+
 export const listar = async (url: string, dados: Object, setDados: Function) => {
     const resposta = await api.get(url, dados);
 
@@ -49,4 +60,6 @@ export const listar = async (url: string, dados: Object, setDados: Function) => 
         resposta.data
     })
 }
+
+
 

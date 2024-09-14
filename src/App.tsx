@@ -59,7 +59,7 @@ function AppContent() {
       <ToastContainer/>
         <BrowserRouter>
           <Header />
-          <div className='flex flex-grow flex-col flex-nowrap'>
+          <div className='flex flex-grow flex-col flex-nowrap '>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
@@ -76,7 +76,6 @@ function AppContent() {
           </div>
           <Footer />
         </BrowserRouter>
-      <Theme/>
     </>
   );
 }

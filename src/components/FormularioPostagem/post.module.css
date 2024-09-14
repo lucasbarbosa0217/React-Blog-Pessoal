@@ -5,7 +5,15 @@
     max-height: 20rem;
 }
 
-.post{
-    max-width: 50%;
-    padding: 2rem;
+.post h2{
+    font-weight: bold;
+    font-size:1.2em;
+}
+
+.post iframe{
+    width: 100%;
+    max-width: 32rem;
+    height: 18rem;
+        margin: 0 auto;
+
 }

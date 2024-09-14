@@ -20,7 +20,11 @@ export const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthProvider({ children }: AuthProviderProps) {
 
-    const [usuario, setUsuario] = useState<UserLogin>({
+    const savedValue = localStorage.getItem("user");
+    const userLogado =  savedValue ? JSON.parse(savedValue) : "";
+
+
+    const [usuario, setUsuario] = useState<UserLogin>(userLogado ? userLogado : {
         id: "0",
         name: "",
         email: "",
@@ -29,14 +33,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
         token: ""
     })
 
+
     const [isLoading, setIsLoading] = useState(false)
 
     async function handleLogin(userLogin: UserLogin) {
         setIsLoading(true)
         try {
-            await login(`/usuarios/logar`, userLogin, setUsuario)
+            let user = await login(`/usuarios/logar`, userLogin, setUsuario)
             toastAlerta('Usuário logado com sucesso', 'sucess')
-
+            const savedValue = localStorage.getItem("myValue");
+            localStorage.setItem("user", JSON.stringify(user));
             setIsLoading(false)
 
         } catch (error) {
@@ -48,14 +54,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     function handleLogout() {
         setUsuario({
-            id: 0,
+            id: "",
             name: "",
             email: "",
             password: "",
             photo: "",
             token: ""
         })
+
+        localStorage.setItem("user", JSON.stringify({
+            id: "",
+            name: "",
+            email: "",
+            password: "",
+            photo: "",
+            token: ""
+        }));
     }
+
+
 
     return (
         <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading }}>

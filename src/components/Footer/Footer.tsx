@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
+import Theme from '../Theme/Theme'
 
 function Footer() {
     const { usuario, } = useContext(AuthContext)
@@ -8,17 +9,17 @@ function Footer() {
 
     let data = new Date().getFullYear()
 
-    if(usuario.token) {
         footerComponent = 
-            <div className="flex justify-center bg-light-accent text-dark-textContent h-16">
-                <div className="container flex flex-col items-center py-4">
-                    <p className=' font-medium'>Blog pessoal Generation | Copyright: 2024 </p>
-
+            <div className="flex flex-wrap  p-4 justify-center bg-light-background2 dark:bg-dark-background2 ">
+                <div className="container flex flex-wrap gap-y-4 items-center h-12 flex-grow  ">
+                    <p className='flex-grow font-medium flex-shrink-0'>LulucasBlog| Copyright: 2024 </p>
+                    <Theme />
 
                 </div>
+
             </div>
  
-    }
+    
 
     return (
         <>
