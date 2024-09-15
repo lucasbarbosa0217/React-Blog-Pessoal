@@ -14,7 +14,7 @@ import Post from "./pages/Post/Post.tsx";
 import Perfil from "./pages/Perfil/Perfil.tsx";
 import { toastAlerta } from "./utils/toasAlerts.ts";
 import { ToastContainer } from "react-toastify";
-import FormularioPostagem from "./components/FormularioPostagem/FormularioPostagem.tsx";
+import FormularioPostagem from "./pages/FormularioPostagem/FormularioPostagem";
 
 function App() {
   return (
@@ -48,11 +48,19 @@ function AppContent() {
   // Lista de rotas onde o Header e Footer não devem ser exibidos
   const hideHeaderAndFooterRoutes = ['/editor/postagem'];
 
+  function checkRenderFooterAndHeader(){
+    let path = location.pathname
+
+    let isPath = hideHeaderAndFooterRoutes.some((string) => path.includes(string))
+
+    return isPath
+  }
+
   return (
     <>
       <ToastContainer />
       {/* Condicional para exibir ou ocultar Header */}
-      {!hideHeaderAndFooterRoutes.includes(location.pathname) && <Header />}
+      {!checkRenderFooterAndHeader() && <Header />}
       <div className='flex flex-grow flex-col flex-nowrap'>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -63,10 +71,14 @@ function AppContent() {
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/admin/*" element={<ProtectedRoute element={<Admin />} />} />
           <Route path="/editor/postagem" element={<ProtectedRoute element={<FormularioPostagem />} />} />
+          <Route path="/editor/postagem/:id" element={<ProtectedRoute element={<FormularioPostagem />} />} />
+
+
+        
         </Routes>
       </div>
       {/* Condicional para exibir ou ocultar Footer */}
-      {!hideHeaderAndFooterRoutes.includes(location.pathname) && <Footer />}
+      {!checkRenderFooterAndHeader() && <Footer />}
     </>
   );
 }

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Link, Route, Routes, useLocation } from 'react-router-dom'
-import FormularioTema from '../../components/Tema/formularioTema/FormularioTema'
-import DeletarTema from '../../components/Tema/deletarTema/DeletarTema'
-import ListaTemas from '../../components/Tema/listaTema/ListaTemas';
 import { AuthContext } from '../../contexts/AuthContext';
-import ListaPostagens from '../../components/ListaPostagens/ListaPostagens';
-import FormularioPostagem from '../../components/FormularioPostagem/FormularioPostagem';
-import DeletarPostagem from '../../components/DeletarPostagem/DeletarPostagem';
 import Home from '../Home/Home';
 import { ArrowDown, ArrowUp } from '@phosphor-icons/react';
+import ListaTemas from '../Tema/listaTema/ListaTemas';
+import FormularioTema from '../Tema/formularioTema/FormularioTema';
+import DeletarTema from '../Tema/deletarTema/DeletarTema';
+import FormularioPostagem from '../FormularioPostagem/FormularioPostagem';
+import DeletarPostagem from '../DeletarPostagem/DeletarPostagem';
+import ListaPostagens from '../../components/ListaPostagens/ListaPostagens';
 
 
 interface NavLinkProps {
@@ -32,9 +32,6 @@ const AdminLink: React.FC<NavLinkProps> = ({ to, children }) => {
 
     );
 };
-
-
-
 
 
 function Admin() {
@@ -89,7 +86,6 @@ function Admin() {
                     <Route path="cadastrarTema" element={<FormularioTema />} />
                     <Route path="temas/editarTema/:id" element={<FormularioTema />} />
                     <Route path="temas/deletarTema/:id" element={<DeletarTema />} />
-                    <Route path="editarPostagem/:id" element={<FormularioPostagem />} />
                     <Route path="deletarPostagem/:id" element={<DeletarPostagem />} />
                     <Route path="postagens" element={<ListaPostagens />} />
                     <Route path="home" element={<Home />} />

@@ -8,12 +8,17 @@ import { toastAlerta } from '../../utils/toasAlerts';
 import styles from "./post.module.css"
 import Editor from './Editor';
 import FormularioTema from '../Tema/formularioTema/FormularioTema';
-import TemaComponente from '../Theme/Theme';
 import { X } from '@phosphor-icons/react';
+import { RotatingLines } from 'react-loader-spinner';
 
 
 function FormularioPostagem() {
     let navigate = useNavigate();
+
+
+    const [isLoadingSend, setIsLoadingSend] = useState(false)
+    const [isLoadingPost, setIsLoadingPost] = useState(false)
+
 
     const { id } = useParams<{ id: string }>();
 
@@ -36,25 +41,56 @@ function FormularioPostagem() {
 
     const [isLoading, setIsLoading] = useState("");
 
+
+    useEffect(() => {
+        if (token === '') {
+            toastAlerta('Você precisa estar logado', 'info')
+            navigate('/login')
+        }
+    }, [token])
+
     async function buscarPostagemPorId(id: string) {
-        let text = await buscar(`/postagens/${id}`, setPostagem, {
-            headers: {
-                Authorization: token,
-            },
-        });
-        setIsLoading(text)
+        try {
+            setIsLoadingPost(true)
+            let text = await buscar(`/postagens/${id}`, setPostagem, {
+                headers: {
+                    Authorization: token,
+                },
+            });
+            setIsLoading(text)
+            setIsLoadingPost(false)
+
+
+        } catch (e) {
+            if (e.toString().includes('403')) {
+                toastAlerta('O token expirou, favor logar novamente', 'info')
+                handleLogout()
+                setIsLoadingPost(false)
+
+            }
+        }
     }
 
-     function handleTema(id: string) {
-         setPostagem({...postagem, theme: { id: id }})
+
+    function handleTema(id: string) {
+        console.log(id)
+        setPostagem({ ...postagem, theme: { id: id } })
     }
 
     async function buscarTemas() {
-        await buscar('/temas', setTemas, {
-            headers: {
-                Authorization: token,
-            },
-        });
+        try {
+            await buscar('/temas', setTemas, {
+                headers: {
+                    Authorization: token,
+                },
+            });
+
+        } catch (e) {
+            if (e.toString().includes('403')) {
+                toastAlerta('O token expirou, favor logar novamente', 'info')
+                handleLogout()
+            }
+        }
     }
 
     useEffect(() => {
@@ -72,19 +108,13 @@ function FormularioPostagem() {
         }
     }, [id]);
 
-    useEffect(() => {
-        setPostagem({
-            ...postagem,
-            theme: tema,
-        });
-    }, [tema]);
+ 
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         setPostagem({
             ...postagem,
             [e.target.name]: e.target.value,
-            theme: tema,
-            user: {id: usuario.id }
+            user: { id: usuario.id }
         });
     }
 
@@ -95,17 +125,19 @@ function FormularioPostagem() {
     async function gerarNovaPostagem(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        console.log(JSON.stringify({ postagem }));
 
         if (id != undefined) {
             try {
-                console.log(value)
+                setIsLoadingSend(true);
+                console.log(postagem)
                 await atualizar(`/postagens`, { ...postagem, text: value }, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
                 });
                 toastAlerta('Postagem atualizada com sucesso!', 'sucess')
+                setIsLoadingSend(false);
+
 
                 retornar();
             } catch (error: any) {
@@ -113,31 +145,40 @@ function FormularioPostagem() {
                     toastAlerta('O token expirou, favor logar novamente', 'error')
                     handleLogout()
                 } else {
-               
+
                     toastAlerta('Erro ao atualizar postagem', 'error')
 
                 }
+
+                setIsLoadingSend(false);
+
             }
         } else {
             try {
-                await cadastrar(`/postagens`, {...postagem, text: value}, setPostagem, {
+                setIsLoadingSend(true);
+
+                await cadastrar(`/postagens`, { ...postagem, text: value }, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
                 });
 
                 toastAlerta('Postagem cadastrada com sucesso', 'sucess')
+                setIsLoadingSend(false);
 
                 retornar();
             } catch (error: any) {
                 if (error.toString().includes('403')) {
-  
+
                     toastAlerta('O token expirou, favor logar novamente', 'info')
 
                     handleLogout()
                 } else {
                     toastAlerta('Erro ao cadastrar a Postagem', 'error')
                 }
+
+                setIsLoadingSend(false);
+
             }
         }
     }
@@ -147,7 +188,7 @@ function FormularioPostagem() {
         setValue(content)
     }
 
-    
+
 
 
     return (
@@ -167,7 +208,7 @@ function FormularioPostagem() {
                     }
                 </div>
 
-                <div className='bg-light-background3 dark:bg-dark-background2 rounded-r-xl border-l dark:border-l-dark-background3 p-8 flex flex-col justify-between'>
+                <div className='bg-light-background3 dark:bg-dark-background2 h-screen rounded-r-xl border-l dark:border-l-dark-background3 p-8 flex flex-col justify-between'>
                     <div>
                         <h1 className="text-4xl text-center ">{id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}</h1>
 
@@ -191,28 +232,36 @@ function FormularioPostagem() {
                                     <option value="" selected disabled>Selecione um tema</option>
                                     {temas.map((tema) => (
                                         <>
-                                            <option value={tema.id} key={tema.id} selected={tema.id === postagem.theme.id} >{tema.description} </option>
+                                            <option value={tema.id} key={tema.id} >{tema.description} </option>
                                         </>
                                     ))}
                                 </select>
                             </div>
-                            <button type='submit' className='mt-4  disabled:bg-slate-200 bg-light-accent hover:bg-light-accentSelected text-white font-bold w-full rounded-lg mx-auto block py-2'>
-                                {id !== undefined ? 'Editar' : 'Cadastrar'}
+                            <button disabled={isLoadingSend || isLoadingPost} type='submit' className={`mt-4  disabled:bg-slate-200 bg-light-accent hover:bg-light-accentSelected text-white font-bold w-full rounded-lg mx-auto  py-2 flex justify-center
+                                ${(isLoadingSend || isLoadingPost) && "bg-slate-600 hover:bg-slate-600" }`}>
+                                {(isLoadingSend || isLoadingPost) ? <RotatingLines
+                                    strokeColor="white"
+                                    strokeWidth="5"
+                                    animationDuration="0.75"
+                                    width="24"
+                                    visible={true}
+                                /> : id !== undefined ? 'Editar' : 'Cadastrar'}
+
+                                
                             </button>
 
-                        </form>                        
+                        </form>
                     </div>
-                    
+
 
                     <div className='flex justify-end h-12'>
-                        <TemaComponente />
 
                     </div>
 
 
                 </div>
             </div>
-                               
+
         </div>
     );
 }
