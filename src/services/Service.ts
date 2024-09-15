@@ -3,6 +3,7 @@ import { Comment } from "../models/Comment";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
+  
 });
 
 export const cadastrarUsuario = async (url: string, dados: Object, setDados: Function) => {
@@ -60,6 +61,13 @@ export const listar = async (url: string, dados: Object, setDados: Function) => 
         resposta.data
     })
 }
+
+
+export const paginar = async (url: string) => {
+    let resposta =  await api.get(url);
+    return resposta
+}
+
 
 
 

@@ -108,7 +108,7 @@ function FormularioPostagem() {
         }
     }, [id]);
 
- 
+
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         setPostagem({
@@ -139,7 +139,7 @@ function FormularioPostagem() {
                 setIsLoadingSend(false);
 
 
-                retornar();
+                // retornar();
             } catch (error: any) {
                 if (error.toString().includes('403')) {
                     toastAlerta('O token expirou, favor logar novamente', 'error')
@@ -157,7 +157,11 @@ function FormularioPostagem() {
             try {
                 setIsLoadingSend(true);
 
+
+
+
                 await cadastrar(`/postagens`, { ...postagem, text: value }, setPostagem, {
+
                     headers: {
                         Authorization: token,
                     },
@@ -165,6 +169,8 @@ function FormularioPostagem() {
 
                 toastAlerta('Postagem cadastrada com sucesso', 'sucess')
                 setIsLoadingSend(false);
+
+
 
                 retornar();
             } catch (error: any) {
@@ -238,7 +244,7 @@ function FormularioPostagem() {
                                 </select>
                             </div>
                             <button disabled={isLoadingSend || isLoadingPost} type='submit' className={`mt-4  disabled:bg-slate-200 bg-light-accent hover:bg-light-accentSelected text-white font-bold w-full rounded-lg mx-auto  py-2 flex justify-center
-                                ${(isLoadingSend || isLoadingPost) && "bg-slate-600 hover:bg-slate-600" }`}>
+                                ${(isLoadingSend || isLoadingPost) && "bg-slate-600 hover:bg-slate-600"}`}>
                                 {(isLoadingSend || isLoadingPost) ? <RotatingLines
                                     strokeColor="white"
                                     strokeWidth="5"
@@ -247,7 +253,7 @@ function FormularioPostagem() {
                                     visible={true}
                                 /> : id !== undefined ? 'Editar' : 'Cadastrar'}
 
-                                
+
                             </button>
 
                         </form>
