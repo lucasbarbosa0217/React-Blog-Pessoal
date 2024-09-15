@@ -71,7 +71,7 @@ function Header() {
                                     <Link to="" onClick={logout} className="text-light-accent  hover:text-light-accentSelected">Sair</Link>
 
                                     {isAdmin() ?
-                                        <Link to='/admin' className="text-light-accent  hover:text-light-accentSelected">Admin</Link>
+                                        <Link to='/admin/postagens' className="text-light-accent  hover:text-light-accentSelected">Admin</Link>
                                         : ""
                                     }
 

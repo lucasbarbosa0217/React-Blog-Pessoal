@@ -9,7 +9,7 @@ interface CardTemaProps {
 
 function CardTemas({ tema }: CardTemaProps) {
     return (
-        <div className='flex flex-col overflow-hidden justify-between shadow-md bg-light-background3 dark:bg-dark-background3 '>
+        <div className='flex flex-col overflow-hidden rounded-xl justify-between shadow-md bg-light-background3 dark:bg-dark-background3 '>
             <header className='p-2 bg-light-accent text-dark-textContent'>Tema</header>
             <p className='p-4 text-2xl text-center h-full'>{tema.description}</p>
             <div className="flex border-t-2  dark:border-dark-background2">

@@ -4,6 +4,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import Theme from '../../../models/Theme';
 import { atualizar, buscar, cadastrar } from '../../../services/Service';
 import { toastAlerta } from '../../../utils/toasAlerts';
+import { RotatingLines } from 'react-loader-spinner';
 
 function FormularioTema() {
     const [tema, setTema] = useState<Theme>({} as Theme);
@@ -15,12 +16,24 @@ function FormularioTema() {
     const { usuario, handleLogout } = useContext(AuthContext);
     const token = usuario.token;
 
+    const [isLoading, setIsLoading] = useState(false)
+    const [isLoadingTheme, setIsLoadingTheme] = useState(false)
+
+
     async function buscarPorId(id: string) {
-        await buscar(`/temas/${id}`, setTema, {
-            headers: {
-                Authorization: token,
-            },
-        });
+        setIsLoadingTheme(true)
+        try{
+            await buscar(`/temas/${id}`, setTema, {
+                headers: {
+                    Authorization: token,
+                },
+            });
+            setIsLoadingTheme(false)
+
+        }catch(e){
+            setIsLoadingTheme(false)
+
+        }
     }
 
     useEffect(() => {
@@ -40,7 +53,7 @@ function FormularioTema() {
 
     async function gerarNovoTema(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
-
+        setIsLoading(true)
         if (id !== undefined) {
             try {
                 await atualizar(`/temas`, tema, setTema, {
@@ -50,6 +63,7 @@ function FormularioTema() {
                 })
 
                 toastAlerta('Tema atualizado com sucesso', 'sucess')
+                setIsLoading(false)
 
                 retornar()
 
@@ -61,6 +75,8 @@ function FormularioTema() {
                 } else {
                     toastAlerta('Erro ao atualizar tema', 'error')
                 }
+                setIsLoading(false)
+
 
             }
 
@@ -73,6 +89,7 @@ function FormularioTema() {
                 })
 
                     toastAlerta('Tema cadastrado com sucesso', 'sucess')
+                setIsLoading(false)
 
 
             } catch (error: any) {
@@ -85,6 +102,8 @@ function FormularioTema() {
                     toastAlerta('Erro ao cadastrar tema', 'error')
 
                 }
+                setIsLoading(false)
+
             }
         }
 
@@ -104,7 +123,7 @@ function FormularioTema() {
     }, [token]);
 
     return (
-        <div className="bg-light-background3 m-4 dark:bg-dark-background3 flex flex-col p-4 max-w-[30rem] w-full self-center justify-center gap-2">
+        <div className="rounded-xl bg-light-background3 m-4 dark:bg-dark-background3 flex flex-col p-4 max-w-[30rem] w-full self-center justify-center gap-2">
             <h1 className="text-4xl font-serif text-center my-8">
                 {id === undefined ? 'Cadastre um novo tema' : 'Editar tema'}
             </h1>
@@ -116,16 +135,24 @@ function FormularioTema() {
                         type="text"
                         placeholder="Descrição"
                         name='description'
-                        className="bg-light-background2 dark:bg-dark-background2 p-2"
+                        className="bg-light-background2 dark:bg-dark-background2 p-2 rounded-lg"
                         value={tema.description}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
                 </div>
-                <button
-                    className="rounded bg-dark-accent hover:bg-dark-accentSelected text-white py-2 flex justify-center"
-                    type="submit"
-                >
-                    {id === undefined ? 'Cadastrar' : 'Editar'}
+              
+
+                <button disabled={isLoading || isLoadingTheme} type='submit' className={`mt-4   bg-light-accent hover:bg-light-accentSelected text-white font-bold w-full rounded-lg mx-auto  py-2 flex justify-center
+                                ${(isLoading || isLoadingTheme) && "bg-slate-500 hover:bg-slate-500"}`}>
+                    {(isLoading || isLoadingTheme) ? <RotatingLines
+                        strokeColor="white"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        width="24"
+                        visible={true}
+                    /> : id !== undefined ? 'Editar' : 'Cadastrar'}
+
+
                 </button>
             </form>
         </div>

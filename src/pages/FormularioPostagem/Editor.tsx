@@ -135,7 +135,7 @@ const TiptapEditor = ({ onContentChange, initialContent }: iEditor) => {
     const file = useRef(null);
 
     return (
-        <div className='w-full flex flex-row overflow-auto h-screen bg-light-background3 dark:bg-dark-background1rounded-l-xl'>
+        <div className='w-full flex flex-row overflow-auto h-screen bg-light-background3 dark:bg-dark-background1 rounded-l-xl'>
             <div className="editor-buttons   w-fit  sticky top-0 flex flex-col flex-wrap gap-x-0 gap-y-2">
                 <button onClick={toggleBold}><TextBolder/></button>
                 <button onClick={toggleItalic}><TextItalic/></button>                

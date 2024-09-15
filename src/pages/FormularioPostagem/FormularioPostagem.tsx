@@ -10,7 +10,7 @@ import Editor from './Editor';
 import FormularioTema from '../Tema/formularioTema/FormularioTema';
 import { X } from '@phosphor-icons/react';
 import { RotatingLines } from 'react-loader-spinner';
-
+import ThemeComponent from "../../components/Theme/Theme"
 
 function FormularioPostagem() {
     let navigate = useNavigate();
@@ -255,7 +255,7 @@ function FormularioPostagem() {
 
 
                     <div className='flex justify-end h-12'>
-
+                        <ThemeComponent />
                     </div>
 
 
