@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { toastAlerta } from "../../utils/toasAlerts";
@@ -33,6 +33,13 @@ function Header() {
         return usuario && usuario.role && usuario.role.some(papel => papel.name === "ROLE_ADMIN")
     }
 
+    const [searchTerm, setSearchTerm] = useState("");
+
+    function search(e){
+        e.preventDefault();
+        navigate("/pesquisa/"+searchTerm)
+    }
+
     return (
         <header
             className="  min-h-8 w-full bg-light-background3 dark:bg-dark-background3 p-4"
@@ -52,11 +59,14 @@ function Header() {
 
                 <form
                     className="sm:col-span-1 lg:col-span-4 bg-light-background2 dark:bg-dark-background2 flex rounded-2xl"
+                    onSubmit={search}
                 >
                     <input
                         type="search"
                         className="bg-transparent outline-none flex-grow pl-2"
                         placeholder="Pesquisar..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <button className="flex p-1 items-center">
                         <span className="material-symbols-outlined text-2xl">search</span>

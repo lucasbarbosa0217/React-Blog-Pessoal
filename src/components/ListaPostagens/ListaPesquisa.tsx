@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CardPostagem from '../CardPostagem/CardPostagem';
 import { Blog } from '../../models/Blog';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import { buscar, paginar } from '../../services/Service';
 import { BallTriangle, DNA } from 'react-loader-spinner';
@@ -11,8 +11,9 @@ import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 
 
 
-function ListaDeslogado() {
+function ListaPesquisa() {
 
+    const { pesquisa} = useParams<{ pesquisa: string }>();
 
     const [postagens, setPostagens] = useState<Blog[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +49,7 @@ function ListaDeslogado() {
        
         try {
             setIsLoading(true);
-            let paginas =  await paginar(`/postagens/pagina?size=${6}&page=${page}&sort=createdTimestamp,desc`);
+            let paginas =  await paginar(`/postagens/pagina/pesquisa/${pesquisa}?size=${9}&page=${page}&sort=createdTimestamp,desc`);
             setPostagens(paginas.data.content)
             setPageQuantity(paginas.data.totalPages)
             setPage(paginas.data.pageable.pageNumber)
@@ -68,14 +69,14 @@ function ListaDeslogado() {
 
     useEffect(() => {
         buscarPostagens(0);
-    }, []);
+    }, [pesquisa]);
 
     return (
         <>
 
             <>
                 {isLoading ? (
-                    <div className='w-full flex justify-center'>
+                    <div className='p-8 w-full flex justify-center'>
                         <BallTriangle
                             height={100}
                             width={100}
@@ -90,17 +91,17 @@ function ListaDeslogado() {
                     
                 ) :
                     postagens.length > 0 ?
-                    <><div className='  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 flex-grow'>
+                    <><div className=' p-8  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow'>
                         {postagens.map((postagem) => (
                             <CardDeslogado key={postagem.id} post={postagem} />
                         ))}
                     </div>
-                            <div className='w-full flex justify-between pt-4 items-center text-dark-textContent'>
+                            <div className='w-full flex justify-between p-4 items-center '>
                                 <a href="#">
                                     <ArrowLeft size={32} onClick={() => { buscarPostagens(page - 1) }} />
 
                                 </a>
-                                <div className='flex gap-4 text-lg text-dark-textContent items-center'>
+                                <div className='flex gap-4 text-lg items-center'>
                                     <a key={0} href={"#"} onClick={() => buscarPostagens(0)} className={`${page == 0 && "text-xl font-bold"} hover:underline`}>{0 + 1}...</a>
                                     {paginasArray.map((pagina) => (
                                         <a key={pagina} href={"#"} onClick={() => buscarPostagens(pagina)} className={`${page == pagina && "text-xl font-bold"} hover:underline`}>{pagina + 1}</a>
@@ -113,16 +114,16 @@ function ListaDeslogado() {
                                     <ArrowRight size={32} onClick={() => { buscarPostagens(page + 1) }} />
                                 </a>
                             </div>
-                    </> :
-                        <p className='text-dark-textContent'> Não postaram nenhum blog ainda...</p>
 
+                    
+                    </> :
+                    "Não postaram nenhum blog ainda..."
             
             }
                
-              
             </>
         </>
     );
 }
 
-export default ListaDeslogado;
+export default ListaPesquisa;

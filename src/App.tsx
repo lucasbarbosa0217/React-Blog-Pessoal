@@ -15,6 +15,7 @@ import Perfil from "./pages/Perfil/Perfil.tsx";
 import { toastAlerta } from "./utils/toasAlerts.ts";
 import { ToastContainer } from "react-toastify";
 import FormularioPostagem from "./pages/FormularioPostagem/FormularioPostagem";
+import ListaPesquisa from "./components/ListaPostagens/ListaPesquisa.tsx";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
 }
 
 function AppContent() {
-  const { usuario } = useContext(AuthContext);
+  const { usuario, handleLogout } = useContext(AuthContext);
   const location = useLocation();
 
   interface ProtectedRouteProps {
@@ -68,6 +69,8 @@ function AppContent() {
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/home" element={<Home />} />
           <Route path="/blog/:urlpath" element={<Post />} />
+          <Route path="/pesquisa/:pesquisa" element={<ListaPesquisa />} />
+
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/admin/*" element={<ProtectedRoute element={<Admin />} />} />
           <Route path="/editor/postagem" element={<ProtectedRoute element={<FormularioPostagem />} />} />

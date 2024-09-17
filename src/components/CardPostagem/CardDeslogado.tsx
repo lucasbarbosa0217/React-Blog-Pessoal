@@ -20,7 +20,7 @@ function CardDeslogado({ post }: CardDeslogadoProps) {
     return (
         <>
             <Link to={`/blog/${post.urlPath}`} >
-                <div className='flex flex-col overflow-hidden justify-between shadow-md bg-light-background3 dark:bg-dark-background3 h-full  rounded-lg'>
+                <div className='flex flex-col overflow-hidden justify-between shadow-md bg-light-background3 dark:bg-dark-background3 h-full max-h-96 rounded-lg'>
 
                     <div className='flex flex-col flex-grow '>
                         {match  ? <img src={`${match[1]}`} className='w-full max-h-[10rem] object-cover'></img>: "" }
