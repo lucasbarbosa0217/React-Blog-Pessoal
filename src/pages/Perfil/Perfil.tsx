@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../contexts/AuthContext'
 import { toastAlerta } from '../../utils/toasAlerts'
+import ImageUploader from '../../components/ImageUploader/ImageUploader'
 function Perfil() {
     let navigate = useNavigate()
 
@@ -21,6 +22,8 @@ function Perfil() {
                 <p>Nome: {usuario.name} </p>
                 <p>Email: {usuario.email}</p>
             </div>
+
+            <ImageUploader />
         </div>
     )
 }

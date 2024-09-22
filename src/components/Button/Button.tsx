@@ -11,7 +11,7 @@ interface ButtonProps {
 function Button({children, onClick, onDoubleClick, onSubmit} : ButtonProps) {
   return (
     <button onClick={onClick} onDoubleClick={onDoubleClick} onSubmit={onSubmit}
-    className='bg-light-accent p-2 text-dark-textContent hover:bg-light-accentSelected active:bg-light-accentActive'
+    className='bg-light-accent p-2 w-full rounded-lg shadow-md text-dark-textContent hover:bg-light-accentSelected active:bg-light-accentActive'
     >{children}</button>
   )
 }
