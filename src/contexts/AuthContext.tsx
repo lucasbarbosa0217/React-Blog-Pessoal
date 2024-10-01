@@ -41,7 +41,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         try {
             let user = await login(`/usuarios/logar`, userLogin, setUsuario)
             toastAlerta('Usuário logado com sucesso', 'sucess')
-            const savedValue = localStorage.getItem("myValue");
             localStorage.setItem("user", JSON.stringify(user));
             setIsLoading(false)
 
